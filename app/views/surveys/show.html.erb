@@ -5,5 +5,19 @@
   <%= @survey.name %>
 </p>
 
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>
+<%= form_tag(send_results_survey_path, method: :post) do %>
+    <% @questions.each do |question| %>
+        <h3><%= question.content %></h3>
+        <% question.answers.each do |answer| %>
+            <br/>
+            <%= answer.content %>
+                <%= fields_for :answers, question do |f| %>
+                    <%= radio_button('result', question.id, answer.id) %>
+                <% end %>
+        <% end %>
+        <hr/>
+    <% end %>
+    <%= submit_tag %>
+<% end %>
+
+<%= link_to 'Ко всем тестам', surveys_path %>

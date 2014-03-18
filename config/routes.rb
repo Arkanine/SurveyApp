@@ -1,7 +1,7 @@
 SurveyApp::Application.routes.draw do
   resources :surveys do
     member do
-      get 'answers'
+      post 'send_results' => 'surveys#send_results'
     end
   end
 

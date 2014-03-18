@@ -16,6 +16,14 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    @questions = @survey.questions
+  end
+    
+  def send_results
+      params[:result].each do |k,v|
+          Result.create(answer_id: v, participant_id: 1)
+      end
+      redirect_to surveys_path
   end
 
   # GET /surveys/new
